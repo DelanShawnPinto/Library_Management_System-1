@@ -16,8 +16,9 @@ const PORT = process.env.PORT || 3000;
 const cache = new NodeCache({ stdTTL: 3600 });
 
 // Middleware
+// Allow all origins for deployment; restrict as needed
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://127.0.0.1:3000'],
+  origin: '*',
   credentials: true
 }));
 app.use(bodyParser.json());
@@ -199,10 +200,6 @@ app.get('/api/search', async (req, res) => {
 // app.get('/api/books/search', async (req, res) => { ... }); 
 
 // Routes
-console.log('auth:', require('./routes/auth'));
-console.log('books2:', require('./routes/books2'));
-console.log('users:', require('./routes/users'));
-console.log('book-requests:', require('./routes/book-request-handler'));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/books', require('./routes/books2'));
 app.use('/api/users', require('./routes/users'));
