@@ -1,23 +1,16 @@
 const mysql = require('mysql2/promise');
 require('dotenv').config();
 
-// Create connection pool
+// Create connection pool (with port for Railway)
 const pool = mysql.createPool({
-    host: process.env.DB_HOST || 'localhost',
-    user: process.env.DB_USER || 'root',
-    password: process.env.DB_PASSWORD || '',
-    database: process.env.DB_NAME || 'LibraryDB',
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
-});
-
-// Create a direct connection (non-pool) for specific use cases
-const connection = mysql.createConnection({
-  host: process.env.DB_HOST || 'localhost',
-  user: process.env.DB_USER || 'root',
-  password: process.env.DB_PASSWORD || '@DelanPinto0407',
-  database: process.env.DB_NAME || 'LibraryDB'
+        host: process.env.DB_HOST || 'localhost',
+        user: process.env.DB_USER || 'root',
+        password: process.env.DB_PASSWORD || '',
+        database: process.env.DB_NAME || 'LibraryDB',
+        port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 3306,
+        waitForConnections: true,
+        connectionLimit: 10,
+        queueLimit: 0
 });
 
 // Test database connection
